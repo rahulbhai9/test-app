@@ -17,8 +17,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Set up JDK 11 (or the version you need)
-    - name: Set up JDK 11
+    # Set up JDK 17
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
@@ -38,9 +38,13 @@ jobs:
 
     # Build APK
     - name: Build the APK
-      run: ./gradlew assembleRelease
+      run: ./gradlew assembleRelease --stacktrace
 
-    # Upload the APK as a build artifact
+    # List the output directory to verify APK location
+    - name: List build outputs
+      run: ls -R app/build/outputs
+
+    # Upload APK as artifact (adjust path if necessary)
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
